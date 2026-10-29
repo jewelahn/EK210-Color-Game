@@ -11,17 +11,17 @@ LiquidCrystal_I2C lcd(0x27, 16, 2);
 // PIN CONFIGURATION: ESP32-WROOM
 // =====================================================
 
-// LEDs
+// LEDs/Users/jewelahn/Documents/Arduino/oct28-color-matching-game/oct28-color-matching-game.ino
 const int RED_LED    = 32;
+const int YELLOW_LED = 33;
 const int GREEN_LED  = 25;
 const int BLUE_LED   = 26;
-const int YELLOW_LED = 33;
 
 // Buttons (connect each button between GPIO and GND)
 const int RED_BUTTON    = 19;
-const int GREEN_BUTTON  = 16;
-const int BLUE_BUTTON   = 17;
 const int YELLOW_BUTTON = 18;
+const int GREEN_BUTTON  = 17;
+const int BLUE_BUTTON   = 16;
 
 // Optional vibrating motor driver control.
 // Change this pin if your motor driver uses another GPIO.
@@ -33,27 +33,27 @@ const int MOTOR_PIN = 27;
 const int EASY_ROUNDS = 5;
 const int BASE_LENGTH = 4;
 
-const unsigned long RESPONSE_TIMEOUT = 5000;
+const unsigned long RESPONSE_TIMEOUT = 30000;
 const unsigned long DEBOUNCE_MS = 35;
 
 // Color IDs
 enum Color {
   RED = 0,
+  YELLOW,
   GREEN,
-  BLUE,
-  YELLOW
+  BLUE
 };
 
 const int ledPins[4] = {
-  RED_LED, GREEN_LED, BLUE_LED, YELLOW_LED
+  RED_LED, YELLOW_LED, GREEN_LED, BLUE_LED
 };
 
 const int buttonPins[4] = {
-  RED_BUTTON, GREEN_BUTTON, BLUE_BUTTON, YELLOW_BUTTON
+  RED_BUTTON, YELLOW_BUTTON, GREEN_BUTTON, BLUE_BUTTON
 };
 
 const char* colorNames[4] = {
-  "Red", "Green", "Blue", "Yellow"
+  "Red", "Yellow", "Green", "Blue"
 };
 
 // Hard mode can grow beyond the initial 4 colors.
@@ -74,7 +74,7 @@ bool hardMode = false;
 void setup() {
   Serial.begin(115200);
 
-  // Initialize LEDs
+ // Initialize LEDs
   for (int i = 0; i < 4; i++) {
     pinMode(ledPins[i], OUTPUT);
     digitalWrite(ledPins[i], LOW);
@@ -128,7 +128,7 @@ void loop() {
 
 // =====================================================
 // BUTTON HANDLING
-// Returns RED, GREEN, BLUE, YELLOW, or -1 on timeout.
+// Returns RED, YELLOW, GREEN, BLUE or -1 on timeout.
 // =====================================================
 int readButton(unsigned long timeoutMs) {
   unsigned long startTime = millis();
@@ -188,7 +188,7 @@ void flashColor(int color, int durationMs) {
 void chooseDifficulty() {
   lcd.clear();
   lcd.setCursor(0, 0);
-  lcd.print("Choose difficulty");
+  lcd.print("Choose mode:");
   lcd.setCursor(0, 1);
   lcd.print("Green=Easy Red=Hard");
 
