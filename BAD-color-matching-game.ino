@@ -1,3 +1,7 @@
+//Last Updated 11/15/26
+//CODE DOES NOT FULLY WORK. 
+//I am keeping for documentation purposes, since I rewrote many of notes into here
+
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 
